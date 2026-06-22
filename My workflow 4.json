@@ -1,0 +1,102 @@
+{
+  "name": "My workflow 4",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {
+          "systemMessage": "You are a helpful support assistant. Answer the user's questions clearly and concisely"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "428f7e0a-d23a-40cf-80e4-266d76a5d025",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        80,
+        208
+      ],
+      "id": "c7c39f52-c00c-43e2-a2f0-b4730c2e179c",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "03qLvk48GGwhxf3C",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "f5ca6570-9340-4a97-a51f-02a06bb70a4d",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "74b4fdbe-d718-4d63-b78f-b3f75077a2cd",
+      "name": "Webhook",
+      "webhookId": "f5ca6570-9340-4a97-a51f-02a06bb70a4d"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "239584c6-79e0-4417-b9a7-5ad274542f5b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e8d563972f4d3e61d7c791d4f0c3b9f819acf86f7853f8ccfd5cffccfd4dbeba"
+  },
+  "nodeGroups": [],
+  "id": "nZ3VoSdJQ4BQbpit",
+  "tags": []
+}
